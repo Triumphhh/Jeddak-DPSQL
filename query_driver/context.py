@@ -65,7 +65,8 @@ class Context:
 接下来的 set_context 方法和 get_context 方法分别用于设置和获取环境信息中的特定键值对。如果指定的 key 存在于字典 self.context 中，则可以通过 get_context 方法获取其对应的 value 值；否则返回 None。
 
 construct_sensitivity_info 方法是一个辅助方法，它通过读取环境变量 source_col_names 和 sensitivities，构造出一个敏感度字典 sensitivities。具体来说，source_col_names 存储了查询语句涉及到的列名列表，sensitivities 存储了这些列对应的敏感度列表。
-
+如果源查询语句中涉及到的所有列都有对应的敏感度，则执行 for 循环，遍历列名列表 col_name，将每个列名和其对应的敏感度写入 sensitivities 中。最后返回 sensitivities 字典。
+需要注意的是，这个方法的实现假定了 source_col_names 和 sensitivities 中的列序列是一一对应的。如果存在列数量不匹配的情况，函数的返回结果可能会出现错误或者缺失。因此，在使用该函数时应该仔细检查输入的数据是否符合预期格式。
 construct_debug_info 方法用于构造 debug 信息，包括源查询语句、重写后的查询语句、追踪 ID、隐私保护方法等内容。其中，源查询语句、重写后的查询语句和追踪 ID 存储在查询信息字典 query_info 中，隐私保护方法存储在 method 中，敏感度信息则通过调用 construct_sensitivity_info 方法构造得到，时间性能则通过 time_perf 字典获取。
 
 construct_dp_info 方法用于构造差分隐私信息，包括隐私相关参数和实用性参数。隐私参数存储在 accountant 中，实用性参数则存储在 utility_dict_list 中，并通过字典的形式返回。
