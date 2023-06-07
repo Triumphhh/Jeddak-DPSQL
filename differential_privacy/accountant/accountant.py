@@ -294,11 +294,13 @@ def is_budget_depleted(privdatas: PrivDataGroup):
             "table_name": table_name,
         }
         sql = '''
-            select * from {budget_table_name} where prefix = '{prefix}' and db_name = '{db_name}' and table_name = '{table_name}' limit 1
+            select * from {budget_table_name} where prefix = '{prefix}' and db_name 
+            = '{db_name}' and table_name = '{table_name}' limit 1
         '''.format(**sql_dict)
         budget_info = budget_manager.execute_sql(sql)
         if len(budget_info["data"]) <= 1:
-            raise ValueError("Cannot find the budget info about the queried table: " + prefix + "." + db_name + "." + table_name + ".")
+            raise ValueError("Cannot find the budget info about the queried table: " 
+                             + prefix + "." + db_name + "." + table_name + ".")
         budget_info_dict = dict(zip(budget_info["data"][0], budget_info["data"][1]))
         if budget_info_dict["total_budget"] <= budget_info_dict["consumed_budget"]:
             if budget_info_dict["exhausted_strategy"] == "reject":
