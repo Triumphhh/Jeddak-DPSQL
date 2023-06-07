@@ -210,7 +210,8 @@ class PrivacyAccountant:
                     "table_name": table_name,
                 }
                 sql = '''
-                        select * from {budget_table_name} where prefix = '{prefix}' and db_name = '{db_name}' and table_name = '{table_name}' limit 1
+                        select * from {budget_table_name} where prefix = '{prefix}' and db_name 
+                        = '{db_name}' and table_name = '{table_name}' limit 1
                 '''.format(**sql_dict)
                 cur.execute(sql)
                 column_name_list = self.budget_manager._get_column_name_list(cur.description)
