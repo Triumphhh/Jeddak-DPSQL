@@ -54,11 +54,13 @@ def dpsql_http_interface_query(request):
         dpsql_instance.context.set_context("trace_id", traceid)
         # do query
         res = dpsql_instance.execute(sql, dbconfig, queryconfig)
-        logging.info("dpaccess-internal-col-interface type is: \n %s" % str(res.get_query_result().get_type()))
+        logging.info("dpaccess-internal-col-interface type is: \n %s" % 
+                     str(res.get_query_result().get_type()))
         # convert to json proto
         res_format = convert_result_tojson(res, debug)
         logging.info(
-            "tracing-sql-execution-response-interface-%s:%s-request-%s" % (traceid, res_format, json.dumps(req_json)))
+            "tracing-sql-execution-response-interface-%s:%s-request-%s" % 
+            (traceid, res_format, json.dumps(req_json)))
     except Exception as err:
         logging.exception("tracing-sql-execution-interface-exception-%s-Exception: %s-request-%s" % (
             traceid, str(err), json.dumps(req_json)))
