@@ -18,7 +18,8 @@ def http_set_budget_info_interface(request):
     try:
         req_json = None
         req_json = request.json
-        for arg in ["prefix", "db_name", "table_name", 'total_budget', 'recover_cycle', 'exhausted_strategy']:
+        for arg in ["prefix", "db_name", "table_name", 'total_budget', 
+                    'recover_cycle', 'exhausted_strategy']:
             if req_json.get(arg) in [None, ""]:
                 raise ValueError(arg + " cannot be None.")
         prefix = req_json['prefix']
@@ -28,7 +29,8 @@ def http_set_budget_info_interface(request):
         recover_cycle = req_json['recover_cycle']
         exhausted_strategy = req_json['exhausted_strategy']
         budget_manager = BudgetManager()
-        budget_manager.set_budget_info(prefix, db_name, table_name, total_budget, recover_cycle, exhausted_strategy)
+        budget_manager.set_budget_info(prefix, db_name, table_name, 
+                      total_budget, recover_cycle, exhausted_strategy)
         res_dict = {}
         status = {'code': 200, 'Message': 'succeed'}
         res_dict['status'] = status
